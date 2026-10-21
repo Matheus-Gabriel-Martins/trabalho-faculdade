@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta
+      name="description"
+      content="Encontre rações, vacinas, veterinários e cuidados para o bem-estar do seu gato."
+    >
+
+    <title>Início | Help Cat</title>
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Caveat:wght@600&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/home.css">
+    <script src="js/home.js" defer></script>
+  </head>
+
+  <body>
+    <div class="pagina-home">
+      <header class="cabecalho-home">
+        <a class="link-marca" href="home.html" aria-label="Help Cat — página inicial">
+          <span class="marca marca--compacta" aria-hidden="true">
+            <span class="marca__simbolo"><span class="marca__rosto"></span></span>
+            <span class="marca__nome">
+              <span class="marca__help">Help</span>
+              <span class="marca__cat">Cat</span>
+            </span>
+          </span>
+        </a>
+
+        <button
+          class="botao-menu"
+          id="botao-menu"
+          type="button"
+          aria-label="Abrir menu"
+          aria-controls="navegacao-principal"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="navegacao-principal" id="navegacao-principal" aria-label="Navegação principal">
+          <ul>
+            <li><a class="ativo" href="home.html" aria-current="page">Início</a></li>
+            <li><a href="resultados.html" data-categoria="Rações">Rações</a></li>
+            <li><a href="#categorias" data-categoria="Vacinas">Vacinas</a></li>
+            <li><a href="#categorias" data-categoria="Veterinários">Veterinários</a></li>
+            <li><a href="#cuidados" data-recurso="Meu Pet">Meu Pet</a></li>
+          </ul>
+        </nav>
+
+        <form class="formulario-busca" id="formulario-busca" role="search">
+          <label class="apenas-leitor-tela" for="busca-home">Buscar no site</label>
+          <input
+            id="busca-home"
+            name="busca"
+            type="search"
+            autocomplete="off"
+            placeholder="O que você está procurando?"
+          >
+          <button type="submit" aria-label="Buscar">
+            <span class="icone-busca" aria-hidden="true"></span>
+          </button>
+        </form>
+
+        <div class="acoes-cabecalho">
+          <button class="botao-icone" id="botao-notificacoes" type="button" aria-label="Ver notificações">
+            <span class="icone-sino" aria-hidden="true"></span>
+            <span class="ponto-notificacao" aria-hidden="true"></span>
+          </button>
+
+          <div class="area-perfil">
+            <button
+              class="botao-perfil"
+              id="botao-perfil"
+              type="button"
+              aria-label="Abrir menu do perfil"
+              aria-controls="menu-perfil"
+              aria-expanded="false"
+            >
+              <img src="assets/imagens/gato-destaque.png" alt="">
+            </button>
+
+            <div class="menu-perfil" id="menu-perfil" hidden>
+              <p><strong>Olá, Kelly!</strong><span>Conta de demonstração</span></p>
+              <a href="login.html">Sair</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="conteudo-home">
+        <section class="secao-destaque" aria-labelledby="titulo-home">
+          <div class="texto-destaque">
+            <p class="boas-vindas"><span aria-hidden="true">🐾</span> Bem-vindo ao Help Cat <span aria-hidden="true">🐾</span></p>
+            <h1 id="titulo-home">Tudo o que seu <strong>gato</strong> precisa, em um só lugar!</h1>
+            <p class="descricao-destaque">
+              Rações, vacinas, cuidados e muito mais para o bem-estar do seu felino.
+            </p>
+            <a class="botao-destaque" href="resultados.html">
+              Ver produtos
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <div class="visual-destaque" aria-hidden="true">
+            <span class="coracao-destaque">♡</span>
+            <span class="raios-destaque">///</span>
+            <img src="assets/imagens/gato-destaque.png" alt="">
+            <p>Gatos felizes,<br>vidas mais longas! <span>♡</span></p>
+          </div>
+        </section>
+
+        <section class="secao-categorias" id="categorias" aria-labelledby="titulo-categorias">
+          <h2 class="apenas-leitor-tela" id="titulo-categorias">Encontre o cuidado ideal</h2>
+
+          <ul class="grade-categorias">
+            <li>
+              <a
+                class="cartao-categoria"
+                href="resultados.html"
+                data-categoria="Rações"
+                data-termos="ração rações comida alimento premium"
+              >
+                <span class="icone-categoria" aria-hidden="true">♨</span>
+                <strong>Rações</strong>
+                <span>As melhores marcas para o seu gato.</span>
+                <i aria-hidden="true">→</i>
+              </a>
+            </li>
+
+            <li>
+              <button
+                class="cartao-categoria"
+                type="button"
+                data-categoria="Vacinas"
+                data-termos="vacina vacinas saúde proteção imunização"
+              >
+                <span class="icone-categoria" aria-hidden="true">✚</span>
+                <strong>Vacinas</strong>
+                <span>Proteção e saúde sempre em dia.</span>
+                <i aria-hidden="true">→</i>
+              </button>
+            </li>
+
+            <li>
+              <button
+                class="cartao-categoria"
+                type="button"
+                data-categoria="Veterinários"
+                data-termos="veterinário veterinários clínica consulta saúde"
+              >
+                <span class="icone-categoria" aria-hidden="true">⚕</span>
+                <strong>Veterinários</strong>
+                <span>Cuidado profissional sempre por perto.</span>
+                <i aria-hidden="true">→</i>
+              </button>
+            </li>
+
+            <li>
+              <button
+                class="cartao-categoria"
+                type="button"
+                data-categoria="Banho e Tosa"
+                data-termos="banho tosa higiene limpeza cuidado"
+              >
+                <span class="icone-categoria" aria-hidden="true">✦</span>
+                <strong>Banho e Tosa</strong>
+                <span>Seu gato limpo, confortável e feliz.</span>
+                <i aria-hidden="true">→</i>
+              </button>
+            </li>
+
+            <li>
+              <button
+                class="cartao-categoria"
+                type="button"
+                data-categoria="Acessórios"
+                data-termos="acessório acessórios brinquedo conforto diversão"
+              >
+                <span class="icone-categoria" aria-hidden="true">▰</span>
+                <strong>Acessórios</strong>
+                <span>Conforto e diversão para o dia a dia.</span>
+                <i aria-hidden="true">→</i>
+              </button>
+            </li>
+          </ul>
+        </section>
+
+        <section class="faixa-cuidados" id="cuidados" aria-labelledby="titulo-cuidados">
+          <span class="pata-faixa" aria-hidden="true">🐾</span>
+          <div>
+            <h2 id="titulo-cuidados">Seu pet merece o melhor!</h2>
+            <p>Aqui você encontra tudo com qualidade, segurança e o melhor atendimento.</p>
+          </div>
+          <span class="coracao-faixa" aria-hidden="true">♡</span>
+        </section>
+      </main>
+
+      <p class="aviso-home" id="aviso-home" role="status" aria-live="polite"></p>
+    </div>
+  </body>
+</html>

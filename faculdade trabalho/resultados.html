@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Compare as rações organizadas para o perfil do seu gato.">
+
+    <title>Rações recomendadas | Help Cat</title>
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Caveat:wght@600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/navegacao-publica.css">
+    <link rel="stylesheet" href="css/produtos.css">
+    <link rel="stylesheet" href="css/resultados.css">
+    <script src="js/navegacao-publica.js" defer></script>
+    <script src="js/dados-racoes.js" defer></script>
+    <script src="js/resultados.js" defer></script>
+  </head>
+
+  <body class="pagina-resultados">
+    <a class="link-pular" href="#conteudo-principal">Pular para o conteúdo</a>
+
+    <header class="cabecalho-publico">
+      <div class="cabecalho-publico__conteudo">
+        <a class="cabecalho-publico__marca" href="index.html" aria-label="Help Cat — página inicial">
+          <span class="marca marca--compacta" aria-hidden="true">
+            <span class="marca__simbolo"><span class="marca__rosto"></span></span>
+            <span class="marca__nome"><span class="marca__help">Help</span><span class="marca__cat">Cat</span></span>
+          </span>
+        </a>
+
+        <button
+          class="botao-menu-publico"
+          id="botao-menu-publico"
+          type="button"
+          aria-label="Abrir menu"
+          aria-controls="menu-publico"
+          aria-expanded="false"
+        ><span></span><span></span><span></span></button>
+
+        <nav class="menu-publico" id="menu-publico" aria-label="Navegação principal">
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="index.html#como-funciona">Como funciona</a></li>
+            <li><a href="index.html#duvidas">Dúvidas</a></li>
+          </ul>
+        </nav>
+
+        <a class="botao-entrar-publico" href="login.html">
+          <span class="icone-usuario-publico" aria-hidden="true"></span><span>Entrar</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="conteudo-principal">
+      <section class="cabecalho-resultados" aria-labelledby="titulo-resultados">
+        <div>
+          <p class="rotulo-resultados"><span aria-hidden="true">🐾</span> Resultado personalizado</p>
+          <h1 id="titulo-resultados">Agora, vamos escolher a ração ideal para o <strong>seu gato!</strong></h1>
+          <p>Refine os filtros, compare as opções e abra os detalhes antes de decidir.</p>
+        </div>
+        <div class="gato-resultados" aria-hidden="true">
+          <span>♡</span>
+          <img src="assets/imagens/gato-destaque.png" alt="">
+          <p>Cada gato tem seu jeito,<br>e a escolha certa faz diferença!</p>
+        </div>
+      </section>
+
+      <div class="barra-filtros-movel">
+        <button
+          id="alternar-filtros"
+          type="button"
+          aria-controls="painel-filtros"
+          aria-expanded="false"
+        >
+          <span aria-hidden="true">☷</span>
+          <span id="texto-alternar-filtros">Mostrar filtros</span>
+        </button>
+        <a href="questionario.html">Refazer questionário</a>
+      </div>
+
+      <div class="estrutura-resultados">
+        <aside class="painel-filtros" id="painel-filtros" aria-labelledby="titulo-filtros">
+          <div class="painel-filtros__titulo">
+            <h2 id="titulo-filtros"><span aria-hidden="true">☷</span> Filtros</h2>
+            <button id="limpar-filtros" type="button">Limpar</button>
+          </div>
+
+          <form id="formulario-filtros">
+            <fieldset>
+              <legend>Condição ou fase</legend>
+              <label><input type="checkbox" name="condicao" value="urinaria"> Trato urinário</label>
+              <label><input type="checkbox" name="condicao" value="peso"> Controle de peso</label>
+              <label><input type="checkbox" name="condicao" value="sensibilidade"> Sensibilidade alimentar</label>
+              <label><input type="checkbox" name="condicao" value="renal"> Cuidado renal</label>
+              <label><input type="checkbox" name="condicao" value="nenhuma"> Sem condição especial</label>
+              <label><input type="checkbox" name="fase" value="filhote"> Filhote</label>
+              <label><input type="checkbox" name="fase" value="adulto"> Adulto</label>
+              <label><input type="checkbox" name="fase" value="idoso"> Idoso</label>
+              <label><input type="checkbox" name="castrado" value="sim"> Castrado</label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Tipo de ração</legend>
+              <label><input type="checkbox" name="tipo" value="seca"> Ração seca</label>
+              <label><input type="checkbox" name="tipo" value="umida"> Ração úmida</label>
+            </fieldset>
+
+            <label class="filtro-selecao" for="filtro-sabor">
+              <span>Sabor</span>
+              <select id="filtro-sabor" name="sabor">
+                <option value="todos">Todos os sabores</option>
+                <option value="frango">Frango</option>
+                <option value="peixe">Peixe</option>
+                <option value="carne">Carne</option>
+              </select>
+            </label>
+
+            <label class="filtro-selecao" for="filtro-preco">
+              <span>Faixa de preço</span>
+              <select id="filtro-preco" name="preco">
+                <option value="todos">Todos os preços</option>
+                <option value="economica">Até R$ 40</option>
+                <option value="intermediaria">De R$ 40 a R$ 70</option>
+                <option value="premium">Acima de R$ 70</option>
+              </select>
+            </label>
+
+            <button class="botao-aplicar" type="submit">Aplicar filtros</button>
+          </form>
+        </aside>
+
+        <section class="lista-resultados" aria-labelledby="titulo-lista-resultados">
+          <div class="lista-resultados__cabecalho">
+            <div>
+              <h2 id="titulo-lista-resultados" tabindex="-1">Rações recomendadas para o seu gato</h2>
+              <p id="contagem-resultados" role="status" aria-live="polite"></p>
+            </div>
+
+            <label for="ordenacao-resultados">
+              <span>Ordenar por:</span>
+              <select id="ordenacao-resultados">
+                <option value="relevancia">Relevância</option>
+                <option value="menor-preco">Menor preço</option>
+                <option value="maior-avaliacao">Melhor avaliação</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="grade-produtos" id="grade-produtos"></div>
+
+          <div class="sem-resultados" id="sem-resultados" hidden>
+            <span aria-hidden="true">🐾</span>
+            <h3>Nenhuma opção apareceu com essa combinação.</h3>
+            <p>Limpe algum filtro ou refaça o questionário para ver mais rações.</p>
+            <button id="limpar-filtros-vazio" type="button">Limpar filtros</button>
+          </div>
+
+          <p class="aviso-resultados">
+            <span aria-hidden="true">☀</span>
+            <strong>Dica:</strong> os produtos e preços desta página são demonstrativos. Para mudanças na dieta, consulte um veterinário.
+          </p>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

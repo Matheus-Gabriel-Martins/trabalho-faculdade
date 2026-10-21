@@ -1,0 +1,113 @@
+.embalagem-racao {
+  --cor-embalagem: #174c85;
+  --cor-detalhe: #f4d8af;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 132px;
+  height: 188px;
+  padding: 22px 13px 16px;
+  border: 1px solid rgb(32 28 25 / 13%);
+  border-radius: 6px 6px 18px 18px;
+  background:
+    linear-gradient(155deg, rgb(255 255 255 / 32%), transparent 32%),
+    var(--cor-embalagem);
+  box-shadow: 0 14px 24px rgb(40 25 12 / 18%);
+  color: var(--branco);
+  line-height: 1.05;
+  text-align: center;
+  transform: perspective(600px) rotateY(-3deg);
+}
+
+.embalagem-racao::before {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  left: 8px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 55%);
+  content: "";
+}
+
+.embalagem-racao::after {
+  position: absolute;
+  right: 12px;
+  bottom: 13px;
+  left: 12px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--cor-detalhe);
+  content: "";
+  opacity: 0.7;
+}
+
+.embalagem-racao__marca {
+  margin-bottom: 11px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.embalagem-racao__nome {
+  display: block;
+  padding: 10px 7px;
+  border-radius: 5px;
+  background: rgb(255 255 255 / 87%);
+  color: #28231f;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.embalagem-racao__pata {
+  margin-top: 10px;
+  font-size: 1.45rem;
+}
+
+.embalagem-racao--royal-urinary { --cor-embalagem: #f6f0df; --cor-detalhe: #6f2a87; color: #b32125; }
+.embalagem-racao--royal-urinary .embalagem-racao__nome { background: #642b7c; color: var(--branco); }
+.embalagem-racao--hills { --cor-embalagem: #eee8df; --cor-detalhe: #532b88; color: #c5292f; }
+.embalagem-racao--hills .embalagem-racao__nome { background: #523087; color: var(--branco); }
+.embalagem-racao--farmina { --cor-embalagem: #266c3f; --cor-detalhe: #df9b49; }
+.embalagem-racao--premier { --cor-embalagem: #17629b; --cor-detalhe: #f3c459; }
+.embalagem-racao--royal-renal { --cor-embalagem: #f5efe5; --cor-detalhe: #a62d6f; color: #b32125; }
+.embalagem-racao--royal-renal .embalagem-racao__nome { background: #9b2968; color: var(--branco); }
+.embalagem-racao--whiskas { --cor-embalagem: #7f2a8d; --cor-detalhe: #f5ae3d; }
+.embalagem-racao--granplus { --cor-embalagem: #a72958; --cor-detalhe: #f4cf65; }
+.embalagem-racao--sache { width: 112px; height: 172px; --cor-embalagem: #e09d16; --cor-detalhe: #812c85; }
+
+.selo-produto {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: max-content;
+  max-width: 100%;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 0.73rem;
+  font-weight: 800;
+}
+
+.selo-produto::before {
+  content: "✦";
+}
+
+.selo--verde { background: #dcefd3; color: #2b6b28; }
+.selo--rosa { background: #f7dce2; color: #923545; }
+.selo--azul { background: #d7ebf6; color: #245f87; }
+.selo--lilas { background: #eadcf7; color: #66328d; }
+
+.avaliacao-produto {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.estrelas-produto {
+  color: #d95108;
+  letter-spacing: 0.05em;
+}

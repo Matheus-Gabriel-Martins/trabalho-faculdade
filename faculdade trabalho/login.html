@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta
+      name="description"
+      content="Acesse sua conta Help Cat e continue ajudando gatos a encontrarem cuidado e proteção."
+    >
+
+    <title>Entrar | Help Cat</title>
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Caveat:wght@600&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/login.js" defer></script>
+  </head>
+
+  <body>
+    <div class="pagina-login">
+      <a class="voltar-inicio-login" href="index.html">← Voltar para o início</a>
+
+      <p class="mensagem-marca">
+        Mais que um site,<br>
+        uma <strong>ajuda</strong> de verdade.
+      </p>
+
+      <header class="cabecalho-marca" aria-label="Help Cat">
+        <a class="link-marca-login" href="index.html" aria-label="Help Cat — voltar para a página inicial">
+          <span class="marca" aria-hidden="true">
+            <span class="marca__simbolo"><span class="marca__rosto"></span></span>
+            <span class="marca__nome">
+              <span class="marca__help">Help</span>
+              <span class="marca__cat">Cat</span>
+            </span>
+            <span class="marca__raios">///</span>
+          </span>
+        </a>
+
+        <p class="valores-marca">
+          <span>Cuidado</span>
+          <i aria-hidden="true"></i>
+          <span>Amor</span>
+          <i aria-hidden="true"></i>
+          <span>Carinho</span>
+        </p>
+      </header>
+
+      <main>
+        <section class="cartao-login" aria-labelledby="titulo-login">
+          <div class="cabecalho-cartao">
+            <h1 id="titulo-login">Seja bem-vindo!</h1>
+            <p>Faça login para continuar.</p>
+          </div>
+
+          <form id="formulario-login" novalidate aria-busy="false">
+            <div class="campo-formulario">
+              <label class="apenas-leitor-tela" for="email">E-mail</label>
+              <div class="controle-campo">
+                <span class="icone-campo icone-usuario" aria-hidden="true"></span>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  inputmode="email"
+                  placeholder="E-mail"
+                  aria-describedby="erro-email"
+                  required
+                >
+              </div>
+              <p class="erro-campo" id="erro-email" role="alert"></p>
+            </div>
+
+            <div class="campo-formulario">
+              <label class="apenas-leitor-tela" for="senha">Senha</label>
+              <div class="controle-campo">
+                <span class="icone-campo icone-cadeado" aria-hidden="true"></span>
+                <input
+                  id="senha"
+                  name="senha"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="Senha"
+                  aria-describedby="erro-senha"
+                  minlength="6"
+                  required
+                >
+                <button
+                  class="botao-visibilidade"
+                  id="alternar-senha"
+                  type="button"
+                  aria-label="Mostrar senha"
+                  aria-pressed="false"
+                >
+                  <span class="icone-olho" aria-hidden="true"></span>
+                </button>
+              </div>
+              <p class="erro-campo" id="erro-senha" role="alert"></p>
+            </div>
+
+            <button class="botao-principal" id="botao-entrar" type="submit">
+              <span class="texto-entrar">Entrar</span>
+              <span class="seta-botao" aria-hidden="true">→</span>
+            </button>
+
+            <div class="separador"><span>ou</span></div>
+
+            <div class="grupo-botoes-sociais" aria-label="Outras formas de entrar">
+              <button class="botao-social" type="button" data-provedor="Google" aria-label="Entrar com Google">
+                <span class="marca-google" aria-hidden="true">G</span>
+              </button>
+              <button class="botao-social" type="button" data-provedor="Facebook" aria-label="Entrar com Facebook">
+                <span class="marca-facebook" aria-hidden="true">f</span>
+              </button>
+              <button class="botao-social" type="button" data-provedor="Apple" aria-label="Entrar com Apple">
+                <span class="marca-apple" aria-hidden="true">A</span>
+              </button>
+            </div>
+
+            <p class="mensagem-login" id="mensagem-login" role="status" aria-live="polite"></p>
+          </form>
+
+          <p class="texto-cadastro">
+            Não tem uma conta?
+            <button class="botao-texto" id="botao-cadastro" type="button">Cadastre-se</button>
+          </p>
+        </section>
+      </main>
+
+      <figure class="arte-gato" aria-hidden="true">
+        <img src="assets/imagens/gato-destaque.png" alt="">
+      </figure>
+
+      <div class="rabiscos-gato" aria-hidden="true">
+        <span class="rabisco-coracao">♡</span>
+        <span class="rabisco-raios">///</span>
+      </div>
+
+      <div class="pata-decorativa" aria-hidden="true">
+        <span class="dedo-pata dedo-pata--um"></span>
+        <span class="dedo-pata dedo-pata--dois"></span>
+        <span class="dedo-pata dedo-pata--tres"></span>
+        <span class="dedo-pata dedo-pata--quatro"></span>
+        <span class="almofada-pata"></span>
+      </div>
+
+      <div class="onda-canto" aria-hidden="true"></div>
+    </div>
+  </body>
+</html>

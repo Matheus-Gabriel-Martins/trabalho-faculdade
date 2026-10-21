@@ -1,0 +1,220 @@
+/* Cabeçalho compartilhado pelas páginas públicas */
+.cabecalho-publico {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px solid rgb(222 210 195 / 62%);
+  background: rgb(255 247 235 / 92%);
+  backdrop-filter: blur(14px);
+}
+
+.cabecalho-publico__conteudo {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) auto minmax(150px, 1fr);
+  align-items: center;
+  width: min(100% - 32px, 1320px);
+  min-height: 76px;
+  margin: 0 auto;
+}
+
+.cabecalho-publico__marca {
+  width: max-content;
+  color: inherit;
+  text-decoration: none;
+}
+
+.menu-publico ul {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.menu-publico a {
+  position: relative;
+  display: block;
+  padding: 12px 2px;
+  color: var(--texto);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.menu-publico a::after {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--laranja);
+  content: "";
+  transform: scaleX(0);
+  transition: transform 160ms ease;
+}
+
+.menu-publico a:hover,
+.menu-publico a[aria-current="page"] {
+  color: var(--laranja-escuro);
+}
+
+.menu-publico a:hover::after,
+.menu-publico a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.botao-entrar-publico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: end;
+  gap: 8px;
+  min-width: 118px;
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1.5px solid var(--laranja-escuro);
+  border-radius: 23px;
+  color: var(--laranja-escuro);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.botao-entrar-publico:hover {
+  background: var(--laranja-escuro);
+  color: var(--branco);
+}
+
+.icone-usuario-publico {
+  position: relative;
+  width: 15px;
+  height: 16px;
+}
+
+.icone-usuario-publico::before {
+  position: absolute;
+  top: 0;
+  left: 4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  content: "";
+}
+
+.icone-usuario-publico::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 8px;
+  border-radius: 8px 8px 2px 2px;
+  background: currentColor;
+  content: "";
+}
+
+.botao-menu-publico {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.botao-menu-publico span {
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--texto);
+}
+
+@media (max-width: 760px) {
+  .cabecalho-publico__conteudo {
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+    min-height: 68px;
+  }
+
+  .botao-menu-publico {
+    display: flex;
+    justify-self: end;
+  }
+
+  .menu-publico {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 16px;
+    left: 16px;
+    display: none;
+    padding: 10px;
+    border: 1px solid var(--borda);
+    border-radius: 16px;
+    background: var(--superficie);
+    box-shadow: 0 18px 36px rgb(58 39 22 / 16%);
+  }
+
+  .menu-publico--aberto {
+    display: block;
+  }
+
+  .menu-publico ul {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .menu-publico a {
+    padding: 11px 14px;
+    border-radius: 10px;
+  }
+
+  .menu-publico a::after {
+    display: none;
+  }
+
+  .menu-publico a:hover,
+  .menu-publico a[aria-current="page"] {
+    background: rgb(249 115 22 / 10%);
+  }
+
+  .botao-entrar-publico {
+    min-width: 44px;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  .botao-entrar-publico span:last-child {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .marca--compacta .marca__nome {
+    font-size: 1.95rem;
+  }
+
+  .marca--compacta .marca__simbolo {
+    width: 30px;
+    height: 23px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .botao-entrar-publico,
+  .botao-menu-publico {
+    transition: color 160ms ease, background 160ms ease, transform 160ms ease;
+  }
+}

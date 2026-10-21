@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta
+      name="description"
+      content="Compare rações para gatos e encontre opções adequadas à idade, saúde e orçamento do seu pet."
+    >
+
+    <title>Help Cat | A ração certa para cada fase</title>
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Caveat:wght@600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/navegacao-publica.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <script src="js/navegacao-publica.js" defer></script>
+  </head>
+
+  <body class="pagina-apresentacao">
+    <a class="link-pular" href="#conteudo-principal">Pular para o conteúdo</a>
+
+    <header class="cabecalho-publico">
+      <div class="cabecalho-publico__conteudo">
+        <a class="cabecalho-publico__marca" href="index.html" aria-label="Help Cat — página inicial">
+          <span class="marca marca--compacta" aria-hidden="true">
+            <span class="marca__simbolo"><span class="marca__rosto"></span></span>
+            <span class="marca__nome">
+              <span class="marca__help">Help</span>
+              <span class="marca__cat">Cat</span>
+            </span>
+          </span>
+        </a>
+
+        <button
+          class="botao-menu-publico"
+          id="botao-menu-publico"
+          type="button"
+          aria-label="Abrir menu"
+          aria-controls="menu-publico"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="menu-publico" id="menu-publico" aria-label="Navegação principal">
+          <ul>
+            <li><a href="index.html" aria-current="page">Início</a></li>
+            <li><a href="#como-funciona">Como funciona</a></li>
+            <li><a href="#duvidas">Dúvidas</a></li>
+          </ul>
+        </nav>
+
+        <a class="botao-entrar-publico" href="login.html">
+          <span class="icone-usuario-publico" aria-hidden="true"></span>
+          <span>Entrar</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="conteudo-principal">
+      <section class="secao-hero" aria-labelledby="titulo-principal">
+        <div class="hero__conteudo">
+          <div class="hero__texto">
+            <p class="rotulo-secao"><span aria-hidden="true">🐾</span> Help Cat</p>
+            <h1 id="titulo-principal">
+              Encontre a <strong>melhor ração</strong> para o seu gato!
+            </h1>
+            <p>
+              Compare opções para diferentes necessidades e bolsos e descubra onde comprar
+              perto de você.
+            </p>
+            <a class="botao-destaque" href="questionario.html">
+              Começar agora <span aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <div class="hero__arte" aria-hidden="true">
+            <span class="rabisco rabisco--coroa">♕</span>
+            <span class="rabisco rabisco--coracao">♡</span>
+            <span class="rabisco rabisco--raios">///</span>
+            <span class="rabisco rabisco--pata">🐾</span>
+            <div class="forma-laranja"></div>
+            <img src="assets/imagens/gato-destaque.png" alt="">
+            <p>Seu gato<br>merece o<br>melhor!</p>
+            <div class="tigela">
+              <span class="graos">••••••</span>
+              <span>🐾</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="secao-beneficios" aria-label="Vantagens do Help Cat">
+        <div class="grade-beneficios">
+          <article class="beneficio">
+            <span class="beneficio__icone" aria-hidden="true">♡</span>
+            <h2>Rações ideais</h2>
+            <p>Encontre opções para a fase e as necessidades do seu gato.</p>
+          </article>
+          <article class="beneficio">
+            <span class="beneficio__icone" aria-hidden="true">R$</span>
+            <h2>Comparação de preços</h2>
+            <p>Veja alternativas que combinam cuidado e o seu orçamento.</p>
+          </article>
+          <article class="beneficio">
+            <span class="beneficio__icone" aria-hidden="true">⌖</span>
+            <h2>Na sua região</h2>
+            <p>Encontre lojas e opções de compra próximas de você.</p>
+          </article>
+          <article class="beneficio">
+            <span class="beneficio__icone" aria-hidden="true">♨</span>
+            <h2>Saúde e bem-estar</h2>
+            <p>Escolhas mais conscientes para uma vida longa e feliz.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="secao-passos" id="como-funciona" aria-labelledby="titulo-passos">
+        <div class="secao-passos__conteudo">
+          <div class="introducao-passos">
+            <p class="rotulo-secao"><span aria-hidden="true">🐾</span> Como funciona</p>
+            <h2 id="titulo-passos">É simples, rápido e prático!</h2>
+            <p>
+              Em poucos passos você encontra opções de alimentação para o seu gato e
+              compara o que faz sentido para a rotina dele.
+            </p>
+            <span class="anotacao-manuscrita">Tudo que<br>seu gato precisa!</span>
+          </div>
+
+          <ol class="lista-passos">
+            <li>
+              <span class="passo__numero">1</span>
+              <span class="passo__icone" aria-hidden="true">?</span>
+              <h3>Responda</h3>
+              <p>Conte sobre o seu gato e suas preferências.</p>
+            </li>
+            <li>
+              <span class="passo__numero">2</span>
+              <span class="passo__icone" aria-hidden="true">⌕</span>
+              <h3>Encontre</h3>
+              <p>Veja as opções que combinam com as respostas.</p>
+            </li>
+            <li>
+              <span class="passo__numero">3</span>
+              <span class="passo__icone" aria-hidden="true">⇄</span>
+              <h3>Compare</h3>
+              <p>Confira características e faixas de preço.</p>
+            </li>
+            <li>
+              <span class="passo__numero">4</span>
+              <span class="passo__icone" aria-hidden="true">⌂</span>
+              <h3>Escolha</h3>
+              <p>Abra os detalhes e decida com mais segurança.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="secao-necessidades" aria-labelledby="titulo-necessidades">
+        <div class="necessidades__texto">
+          <p class="rotulo-secao"><span aria-hidden="true">🐾</span> O que você precisa</p>
+          <h2 id="titulo-necessidades">Tudo o que seu gato precisa, em um só lugar.</h2>
+          <ul>
+            <li>Opções para filhotes, adultos e idosos</li>
+            <li>Filtros para condições e sensibilidades</li>
+            <li>Marcas conhecidas e alternativas para comparar</li>
+            <li>Faixas de preço para diferentes orçamentos</li>
+            <li>Informações claras antes de escolher</li>
+          </ul>
+        </div>
+
+        <div class="mostruario-racoes" aria-label="Exemplos ilustrativos de embalagens de ração">
+          <span class="anotacao-manuscrita">Mais opções,<br>mais cuidado!</span>
+          <div class="pacote-ilustrado pacote-ilustrado--roxo"><b>Whiskas</b><small>Adultos</small></div>
+          <div class="pacote-ilustrado pacote-ilustrado--amarelo"><b>Petiscos</b><small>Sabor frango</small></div>
+          <div class="pacote-ilustrado pacote-ilustrado--azul"><b>Premier</b><small>Gatos</small></div>
+          <div class="pacote-ilustrado pacote-ilustrado--ciano"><b>Royal Canin</b><small>Adultos</small></div>
+          <div class="tigela tigela--roxa"><span class="graos">••••••••</span><span>🐾</span></div>
+        </div>
+      </section>
+
+      <section class="secao-duvidas" id="duvidas" aria-labelledby="titulo-duvidas">
+        <div class="duvidas__introducao">
+          <p class="rotulo-secao"><span aria-hidden="true">?</span> Dúvidas frequentes</p>
+          <h2 id="titulo-duvidas">Ainda tem alguma dúvida?</h2>
+          <p>Confira as perguntas mais comuns sobre o Help Cat.</p>
+          <a class="botao-secundario" href="mailto:contato@helpcat.com.br">
+            Falar com a gente <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="lista-duvidas">
+          <details>
+            <summary>Como vocês escolhem as opções?</summary>
+            <p>Usamos as respostas do questionário para organizar produtos compatíveis com o perfil informado.</p>
+          </details>
+          <details>
+            <summary>Preciso criar uma conta?</summary>
+            <p>Não. Você pode responder ao questionário e consultar os resultados sem fazer login.</p>
+          </details>
+          <details>
+            <summary>O Help Cat vende rações?</summary>
+            <p>Não. O protótipo reúne informações para facilitar a comparação entre opções.</p>
+          </details>
+          <details>
+            <summary>As recomendações substituem o veterinário?</summary>
+            <p>Não. Para necessidades clínicas ou mudanças na dieta, consulte um médico-veterinário.</p>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer class="rodape-publico">
+      <div class="rodape-publico__conteudo">
+        <div class="marca marca--compacta marca--rodape" aria-label="Help Cat">
+          <span class="marca__simbolo" aria-hidden="true"><span class="marca__rosto"></span></span>
+          <span class="marca__nome" aria-hidden="true">
+            <span class="marca__help">Help</span><span class="marca__cat">Cat</span>
+          </span>
+        </div>
+        <p>Projeto acadêmico · Help Cat</p>
+        <p class="rodape__recado"><span aria-hidden="true">🐾</span> Aqui tem tudo que seu gato precisa!</p>
+      </div>
+    </footer>
+  </body>
+</html>

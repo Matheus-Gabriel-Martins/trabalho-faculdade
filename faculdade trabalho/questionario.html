@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Responda quatro perguntas e encontre opções de ração para o seu gato.">
+
+    <title>Questionário de ração | Help Cat</title>
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Caveat:wght@600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/navegacao-publica.css">
+    <link rel="stylesheet" href="css/questionario.css">
+    <script src="js/navegacao-publica.js" defer></script>
+    <script src="js/questionario.js" defer></script>
+  </head>
+
+  <body class="pagina-questionario">
+    <a class="link-pular" href="#conteudo-principal">Pular para o conteúdo</a>
+
+    <header class="cabecalho-publico">
+      <div class="cabecalho-publico__conteudo">
+        <a class="cabecalho-publico__marca" href="index.html" aria-label="Help Cat — página inicial">
+          <span class="marca marca--compacta" aria-hidden="true">
+            <span class="marca__simbolo"><span class="marca__rosto"></span></span>
+            <span class="marca__nome"><span class="marca__help">Help</span><span class="marca__cat">Cat</span></span>
+          </span>
+        </a>
+
+        <button
+          class="botao-menu-publico"
+          id="botao-menu-publico"
+          type="button"
+          aria-label="Abrir menu"
+          aria-controls="menu-publico"
+          aria-expanded="false"
+        ><span></span><span></span><span></span></button>
+
+        <nav class="menu-publico" id="menu-publico" aria-label="Navegação principal">
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="index.html#como-funciona">Como funciona</a></li>
+            <li><a href="index.html#duvidas">Dúvidas</a></li>
+          </ul>
+        </nav>
+
+        <a class="botao-entrar-publico" href="login.html">
+          <span class="icone-usuario-publico" aria-hidden="true"></span><span>Entrar</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="conteudo-principal" class="questionario">
+      <section class="questionario__apresentacao" aria-labelledby="titulo-questionario">
+        <div class="questionario__gato" aria-hidden="true">
+          <span class="rabisco-questionario rabisco-questionario--coracao">♡</span>
+          <span class="rabisco-questionario rabisco-questionario--raios">///</span>
+          <div></div>
+          <img src="assets/imagens/gato-destaque.png" alt="">
+        </div>
+
+        <div class="questionario__titulo">
+          <span aria-hidden="true">🐾</span>
+          <h1 id="titulo-questionario">Qual a melhor ração para o <strong>seu gato?</strong></h1>
+          <p>Responda algumas informações e nós ajudamos a organizar as opções mais adequadas.</p>
+        </div>
+
+        <p class="frase-questionario" aria-hidden="true">
+          Mais saúde,<br>mais energia,<br>mais momentos juntos! ♡
+        </p>
+      </section>
+
+      <section class="cartao-questionario" aria-label="Perguntas sobre o seu gato">
+        <form id="formulario-questionario" novalidate>
+          <fieldset class="etapa-questionario" data-etapa="0">
+            <legend>Conte o básico sobre o seu gato</legend>
+            <div class="grade-campos">
+              <label class="campo-questionario" for="idade-gato">
+                <span class="campo-questionario__titulo"><i aria-hidden="true">▦</i> Idade do seu gato</span>
+                <select id="idade-gato" name="idade" required>
+                  <option value="">Selecione a idade</option>
+                  <option value="filhote">Filhote (até 1 ano)</option>
+                  <option value="adulto">Adulto (1 a 7 anos)</option>
+                  <option value="idoso">Idoso (acima de 7 anos)</option>
+                </select>
+                <small>Escolha a fase de vida atual.</small>
+              </label>
+
+              <label class="campo-questionario" for="peso-gato">
+                <span class="campo-questionario__titulo"><i aria-hidden="true">⚖</i> Peso do seu gato</span>
+                <select id="peso-gato" name="peso" required>
+                  <option value="">Selecione o peso</option>
+                  <option value="ate-3">Até 3 kg</option>
+                  <option value="3-a-5">De 3 a 5 kg</option>
+                  <option value="5-a-7">De 5 a 7 kg</option>
+                  <option value="acima-7">Acima de 7 kg</option>
+                </select>
+                <small>Use um valor aproximado se não souber exatamente.</small>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="etapa-questionario" data-etapa="1" hidden>
+            <legend>Como está a saúde dele?</legend>
+            <div class="grade-campos">
+              <label class="campo-questionario" for="castracao-gato">
+                <span class="campo-questionario__titulo"><i aria-hidden="true">✦</i> Castração</span>
+                <select id="castracao-gato" name="castracao" required>
+                  <option value="">Selecione uma opção</option>
+                  <option value="castrado">Castrado ou esterilizado</option>
+                  <option value="nao-castrado">Não castrado</option>
+                </select>
+                <small>A necessidade calórica pode mudar após a castração.</small>
+              </label>
+
+              <label class="campo-questionario" for="condicao-gato">
+                <span class="campo-questionario__titulo"><i aria-hidden="true">♡</i> Condição especial</span>
+                <select id="condicao-gato" name="condicao" required>
+                  <option value="">Selecione uma opção</option>
+                  <option value="nenhuma">Nenhuma condição conhecida</option>
+                  <option value="urinaria">Trato urinário</option>
+                  <option value="peso">Controle de peso</option>
+                  <option value="sensibilidade">Sensibilidade alimentar</option>
+                  <option value="renal">Cuidados renais</option>
+                </select>
+                <small>Em caso de diagnóstico, siga também a orientação veterinária.</small>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="etapa-questionario" data-etapa="2" hidden>
+            <legend>Quais são as preferências?</legend>
+            <div class="grade-campos">
+              <label class="campo-questionario" for="tipo-racao">
+                <span class="campo-questionario__titulo"><i aria-hidden="true">◉</i> Tipo de ração</span>
+                <select id="tipo-racao" name="tipo" required>
+                  <option value="">Selecione o tipo</option>
+                  <option value="seca">Ração seca</option>
+                  <option value="umida">Ração úmida</option>
+                  <option value="ambas">Seca e úmida</option>
+                </select>
+                <small>Você poderá mudar esse filtro nos resultados.</small>
+              </label>
+
+              <label class="campo-questionario" for="sabor-racao">
+                <span class="campo-questionario__titulo"><i aria-hidden="true">♨</i> Sabor preferido</span>
+                <select id="sabor-racao" name="sabor" required>
+                  <option value="">Selecione o sabor</option>
+                  <option value="todos">Sem preferência</option>
+                  <option value="frango">Frango</option>
+                  <option value="peixe">Peixe</option>
+                  <option value="carne">Carne</option>
+                </select>
+                <small>Escolha o sabor que ele aceita melhor.</small>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="etapa-questionario" data-etapa="3" hidden>
+            <legend>Para fechar, conte sobre a compra</legend>
+            <div class="grade-campos">
+              <label class="campo-questionario" for="faixa-preco">
+                <span class="campo-questionario__titulo"><i aria-hidden="true">R$</i> Faixa de preço</span>
+                <select id="faixa-preco" name="preco" required>
+                  <option value="">Selecione uma faixa</option>
+                  <option value="economica">Até R$ 40</option>
+                  <option value="intermediaria">De R$ 40 a R$ 70</option>
+                  <option value="premium">Acima de R$ 70</option>
+                  <option value="todos">Quero comparar todas</option>
+                </select>
+                <small>Os valores apresentados no protótipo são demonstrativos.</small>
+              </label>
+
+              <label class="campo-questionario" for="regiao-compra">
+                <span class="campo-questionario__titulo"><i aria-hidden="true">⌖</i> Região</span>
+                <select id="regiao-compra" name="regiao" required>
+                  <option value="">Selecione a região</option>
+                  <option value="centro">Centro</option>
+                  <option value="norte">Região Norte</option>
+                  <option value="sul">Região Sul</option>
+                  <option value="leste">Região Leste</option>
+                  <option value="oeste">Região Oeste</option>
+                  <option value="online">Compra on-line</option>
+                </select>
+                <small>Use a opção on-line caso não queira informar uma região.</small>
+              </label>
+            </div>
+          </fieldset>
+
+          <p class="aviso-questionario">
+            <span aria-hidden="true">🐾</span>
+            Suas respostas serão usadas somente para organizar as opções desta demonstração.
+          </p>
+
+          <div class="andamento-questionario">
+            <p id="texto-andamento" role="status" aria-live="polite" aria-atomic="true">Pergunta 1 de 4</p>
+            <ol id="indicadores-etapas" aria-label="Progresso do questionário">
+              <li aria-current="step"><span class="apenas-leitor-tela">Etapa 1</span></li>
+              <li><span class="apenas-leitor-tela">Etapa 2</span></li>
+              <li><span class="apenas-leitor-tela">Etapa 3</span></li>
+              <li><span class="apenas-leitor-tela">Etapa 4</span></li>
+            </ol>
+          </div>
+
+          <p class="mensagem-questionario" id="mensagem-questionario" role="alert"></p>
+
+          <div class="acoes-questionario">
+            <button class="botao-voltar" id="botao-voltar" type="button" hidden>← Voltar</button>
+            <button class="botao-proxima" id="botao-proxima" type="button">
+              Próxima pergunta <span aria-hidden="true">→</span>
+            </button>
+            <button class="botao-proxima" id="botao-resultados" type="submit" hidden>
+              Ver resultados <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <div class="onda-questionario" aria-hidden="true">
+        <span>🐾</span>
+        <p>Cuidando do seu gato em todas as fases</p>
+      </div>
+    </main>
+  </body>
+</html>

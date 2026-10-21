@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Veja os detalhes, composição e informações nutricionais da ração selecionada.">
+
+    <title>Detalhes da ração | Help Cat</title>
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Caveat:wght@600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/navegacao-publica.css">
+    <link rel="stylesheet" href="css/produtos.css">
+    <link rel="stylesheet" href="css/detalhes-racao.css">
+    <script src="js/navegacao-publica.js" defer></script>
+    <script src="js/dados-racoes.js" defer></script>
+    <script src="js/detalhes-racao.js" defer></script>
+  </head>
+
+  <body class="pagina-detalhes">
+    <a class="link-pular" href="#conteudo-principal">Pular para o conteúdo</a>
+
+    <header class="cabecalho-publico">
+      <div class="cabecalho-publico__conteudo">
+        <a class="cabecalho-publico__marca" href="index.html" aria-label="Help Cat — página inicial">
+          <span class="marca marca--compacta" aria-hidden="true">
+            <span class="marca__simbolo"><span class="marca__rosto"></span></span>
+            <span class="marca__nome"><span class="marca__help">Help</span><span class="marca__cat">Cat</span></span>
+          </span>
+        </a>
+
+        <button
+          class="botao-menu-publico"
+          id="botao-menu-publico"
+          type="button"
+          aria-label="Abrir menu"
+          aria-controls="menu-publico"
+          aria-expanded="false"
+        ><span></span><span></span><span></span></button>
+
+        <nav class="menu-publico" id="menu-publico" aria-label="Navegação principal">
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="index.html#como-funciona">Como funciona</a></li>
+            <li><a href="index.html#duvidas">Dúvidas</a></li>
+          </ul>
+        </nav>
+
+        <a class="botao-entrar-publico" href="login.html">
+          <span class="icone-usuario-publico" aria-hidden="true"></span><span>Entrar</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="conteudo-principal" class="conteudo-detalhes">
+      <a class="voltar-resultados" href="resultados.html"><span aria-hidden="true">←</span> Voltar para os resultados</a>
+
+      <section class="produto-nao-encontrado" id="produto-nao-encontrado" hidden>
+        <span aria-hidden="true">🐾</span>
+        <h1>Não encontramos essa ração.</h1>
+        <p>O endereço pode estar incompleto ou o produto não faz parte da demonstração.</p>
+        <a href="resultados.html">Ver todas as opções</a>
+      </section>
+
+      <div id="detalhes-produto">
+        <section class="apresentacao-produto" aria-labelledby="nome-produto">
+          <div class="galeria-produto">
+            <div class="miniaturas-produto" role="group" aria-label="Vistas da embalagem">
+              <button class="miniatura-produto miniatura-produto--ativa" type="button" data-vista="frente" aria-label="Ver embalagem de frente" aria-pressed="true">
+                <span aria-hidden="true">▯</span>
+              </button>
+              <button class="miniatura-produto" type="button" data-vista="lado" aria-label="Ver embalagem de lado" aria-pressed="false">
+                <span aria-hidden="true">◧</span>
+              </button>
+              <button class="miniatura-produto" type="button" data-vista="graos" aria-label="Ver ilustração dos grãos" aria-pressed="false">
+                <span aria-hidden="true">•••</span>
+              </button>
+            </div>
+
+            <div class="imagem-principal-produto" id="imagem-principal-produto"></div>
+          </div>
+
+          <div class="resumo-produto">
+            <p class="recomendacao-produto"><span aria-hidden="true">🐱</span> <span id="texto-recomendacao"></span></p>
+            <p class="marca-produto" id="marca-produto"></p>
+            <h1 id="nome-produto"></h1>
+            <p class="subtitulo-produto" id="subtitulo-produto"></p>
+
+            <ul class="beneficios-produto" id="beneficios-produto"></ul>
+
+            <div class="avaliacao-produto avaliacao-produto--detalhe">
+              <span class="estrelas-produto" id="estrelas-produto"></span>
+              <strong id="nota-produto"></strong>
+              <span id="avaliacoes-produto"></span>
+            </div>
+
+            <p class="descricao-produto" id="descricao-produto"></p>
+
+            <div class="compra-produto">
+              <p>
+                <span id="peso-produto"></span>
+                <strong id="preco-produto"></strong>
+                <small>Valor demonstrativo</small>
+              </p>
+              <button id="buscar-lojas" type="button">Encontrar onde comprar <span aria-hidden="true">→</span></button>
+            </div>
+            <p class="mensagem-lojas" id="mensagem-lojas" role="status" aria-live="polite"></p>
+          </div>
+        </section>
+
+        <section class="informacoes-produto" aria-label="Informações do produto">
+          <div class="abas-produto" role="tablist" aria-label="Informações da ração">
+            <button id="aba-nutrientes" type="button" role="tab" aria-selected="true" aria-controls="painel-nutrientes" tabindex="0">
+              Informações nutricionais
+            </button>
+            <button id="aba-composicao" type="button" role="tab" aria-selected="false" aria-controls="painel-composicao" tabindex="-1">
+              Composição
+            </button>
+            <button id="aba-cuidados" type="button" role="tab" aria-selected="false" aria-controls="painel-cuidados" tabindex="-1">
+              Dicas e orientações
+            </button>
+            <button id="aba-porcao" type="button" role="tab" aria-selected="false" aria-controls="painel-porcao" tabindex="-1">
+              Porção recomendada
+            </button>
+          </div>
+
+          <div class="paineis-produto">
+            <section id="painel-nutrientes" role="tabpanel" aria-labelledby="aba-nutrientes">
+              <h2>Informações nutricionais</h2>
+              <p>Níveis de garantia informados para esta demonstração.</p>
+              <div class="tabela-responsiva">
+                <table>
+                  <caption class="apenas-leitor-tela">Níveis de garantia da ração selecionada</caption>
+                  <thead><tr><th scope="col">Nutriente</th><th scope="col">Quantidade</th></tr></thead>
+                  <tbody id="tabela-nutrientes"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="painel-composicao" role="tabpanel" aria-labelledby="aba-composicao" hidden>
+              <h2>Composição</h2>
+              <p id="texto-composicao"></p>
+              <div class="nota-informativa"><span aria-hidden="true">🍃</span><div><strong>Sem corantes artificiais</strong><p>Mais cuidado na rotina alimentar do seu gato.</p></div></div>
+            </section>
+
+            <section id="painel-cuidados" role="tabpanel" aria-labelledby="aba-cuidados" hidden>
+              <h2>Dicas e orientações</h2>
+              <div class="lista-orientacoes">
+                <article><span aria-hidden="true">♨</span><div><h3>Modo de uso</h3><p>Faça a troca de alimento gradualmente e mantenha água fresca disponível.</p></div></article>
+                <article><span aria-hidden="true">◉</span><div><h3>Hidratação</h3><p>A ingestão de água ajuda no funcionamento do organismo e na saúde urinária.</p></div></article>
+                <article><span aria-hidden="true">✚</span><div><h3>Consulta veterinária</h3><p>Mantenha o acompanhamento e ajuste a dieta conforme a orientação profissional.</p></div></article>
+              </div>
+            </section>
+
+            <section id="painel-porcao" role="tabpanel" aria-labelledby="aba-porcao" hidden>
+              <h2>Porção recomendada</h2>
+              <p>A quantidade diária depende do peso, da idade e do nível de atividade do gato.</p>
+              <ul class="lista-porcoes">
+                <li><strong>Até 3 kg:</strong> consulte a faixa indicada na embalagem.</li>
+                <li><strong>De 3 a 5 kg:</strong> divida a porção diária em duas ou mais refeições.</li>
+                <li><strong>Acima de 5 kg:</strong> peça orientação para ajustar a quantidade com segurança.</li>
+              </ul>
+            </section>
+          </div>
+        </section>
+
+        <aside class="ajuda-detalhes">
+          <div><span aria-hidden="true">🐾</span><p><strong>Ainda tem dúvidas?</strong><br>Nossa equipe pode ajudar você a comparar as opções.</p></div>
+          <a href="mailto:contato@helpcat.com.br">Falar com a gente</a>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>
