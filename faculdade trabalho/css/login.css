@@ -712,6 +712,14 @@ main {
   }
 }
 
+@media (min-width: 1181px) and (min-height: 801px) {
+  .pagina-login {
+    height: 100vh;
+    height: 100dvh;
+    overflow: clip;
+  }
+}
+
 @media (max-height: 800px) and (min-width: 821px) {
   .pagina-login {
     padding-top: 24px;

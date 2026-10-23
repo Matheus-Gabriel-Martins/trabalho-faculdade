@@ -101,7 +101,9 @@
   position: sticky;
   top: 98px;
   align-self: start;
+  max-height: calc(100vh - 118px);
   padding: 20px;
+  overflow-y: auto;
   border: 1px solid var(--borda);
   border-radius: 20px;
   background: rgb(255 248 236 / 88%);
@@ -430,7 +432,9 @@
   .painel-filtros {
     position: static;
     display: none;
+    max-height: none;
     margin-bottom: 20px;
+    overflow: visible;
   }
 
   .painel-filtros--aberto {

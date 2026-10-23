@@ -664,6 +664,12 @@
   }
 }
 
+@media (max-width: 360px) {
+  .mostruario-racoes {
+    transform: scale(0.48);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .botao-destaque,
   .botao-secundario {

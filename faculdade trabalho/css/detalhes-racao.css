@@ -549,12 +549,22 @@
   }
 
   .abas-produto {
-    display: flex;
-    overflow-x: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
   }
 
   .abas-produto button {
-    flex: 0 0 180px;
+    flex: auto;
+    border-bottom: 1px solid var(--borda);
+  }
+
+  .abas-produto button:nth-child(even) {
+    border-right: 0;
+  }
+
+  .abas-produto button:nth-last-child(-n + 2) {
+    border-bottom: 0;
   }
 
   .paineis-produto {

@@ -712,10 +712,14 @@ body {
   }
 
   .secao-destaque {
-    grid-template-columns: 52% 48%;
-    min-height: 420px;
-    padding-right: 0;
-    padding-left: 0;
+    grid-template-columns: 1fr;
+    min-height: 650px;
+    padding: 42px 4px 0;
+  }
+
+  .texto-destaque {
+    align-self: start;
+    max-width: 620px;
   }
 
   .coracao-destaque,
@@ -723,9 +727,14 @@ body {
     display: none;
   }
 
+  .visual-destaque {
+    min-height: 300px;
+  }
+
   .visual-destaque img {
-    left: 54%;
-    width: 520px;
+    bottom: -244px;
+    left: 50%;
+    width: min(90vw, 540px);
   }
 
   .grade-categorias {
