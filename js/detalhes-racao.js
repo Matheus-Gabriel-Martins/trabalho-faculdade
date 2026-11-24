@@ -1,14 +1,12 @@
 "use strict";
 
-const catalogoRacoes = window.catalogoRacoes ?? [];
 const parametrosPagina = new URLSearchParams(window.location.search);
 const idProduto = parametrosPagina.get("produto");
-const produtoSelecionado = idProduto === null
-  ? catalogoRacoes[0]
-  : catalogoRacoes.find((produto) => produto.id === idProduto);
+const escapar = apiHelpCat.escaparHtml;
 
 const blocoDetalhes = document.getElementById("detalhes-produto");
 const avisoProdutoNaoEncontrado = document.getElementById("produto-nao-encontrado");
+const statusDetalhes = document.getElementById("status-detalhes");
 const CHAVE_CONSULTA_RESULTADOS = "consultaResultadosHelpCat";
 
 function restaurarLinkDosResultados() {
@@ -22,7 +20,7 @@ function restaurarLinkDosResultados() {
 
   if (!consultaSalva) return;
 
-  const nomesPermitidos = new Set(["condicao", "fase", "tipo", "castrado", "sabor", "preco", "ordem"]);
+  const nomesPermitidos = new Set(["condicao", "fase", "tipo", "castrado", "sabor", "preco", "ordem", "favoritos"]);
   const consultaValidada = new URLSearchParams();
 
   new URLSearchParams(consultaSalva).forEach((valor, nome) => {
@@ -40,9 +38,9 @@ function moeda(valor) {
 
 function criarEmbalagem(produto) {
   return `
-    <div class="embalagem-racao ${produto.classeEmbalagem}" id="embalagem-detalhe">
-      <span class="embalagem-racao__marca">${produto.marca}</span>
-      <strong class="embalagem-racao__nome">${produto.nome}</strong>
+    <div class="embalagem-racao ${escapar(produto.classeEmbalagem)}" id="embalagem-detalhe">
+      <span class="embalagem-racao__marca">${escapar(produto.marca)}</span>
+      <strong class="embalagem-racao__nome">${escapar(produto.nome)}</strong>
       <span class="embalagem-racao__pata" aria-hidden="true">🐾</span>
     </div>
   `;
@@ -68,11 +66,11 @@ function preencherDetalhes(produto) {
   document.getElementById("texto-composicao").textContent = produto.composicao;
 
   document.getElementById("beneficios-produto").innerHTML = produto.beneficios
-    .map((beneficio) => `<li>${beneficio}</li>`)
+    .map((beneficio) => `<li>${escapar(beneficio)}</li>`)
     .join("");
 
   document.getElementById("tabela-nutrientes").innerHTML = produto.nutrientes
-    .map(([nutriente, quantidade]) => `<tr><th scope="row">${nutriente}</th><td>${quantidade}</td></tr>`)
+    .map(([nutriente, quantidade]) => `<tr><th scope="row">${escapar(nutriente)}</th><td>${escapar(quantidade)}</td></tr>`)
     .join("");
 }
 
@@ -136,17 +134,35 @@ function configurarAbas() {
   });
 }
 
-if (!produtoSelecionado) {
-  blocoDetalhes.hidden = true;
-  avisoProdutoNaoEncontrado.hidden = false;
-} else {
+async function carregarDetalhes() {
   restaurarLinkDosResultados();
-  preencherDetalhes(produtoSelecionado);
-  configurarGaleria();
-  configurarAbas();
-
-  document.getElementById("buscar-lojas").addEventListener("click", () => {
-    document.getElementById("mensagem-lojas").textContent =
-      "A busca de lojas será conectada quando o projeto tiver uma base de estabelecimentos.";
-  });
+  try {
+    const produto = idProduto === null
+      ? (await apiHelpCat.solicitar("racoes"))[0]
+      : await apiHelpCat.solicitar(`racoes/${encodeURIComponent(idProduto)}`);
+    statusDetalhes.hidden = true;
+    if (!produto) {
+      avisoProdutoNaoEncontrado.hidden = false;
+      return;
+    }
+    preencherDetalhes(produto);
+    configurarGaleria();
+    configurarAbas();
+    blocoDetalhes.hidden = false;
+  } catch (erro) {
+    if (erro.status === 404) {
+      statusDetalhes.hidden = true;
+      avisoProdutoNaoEncontrado.hidden = false;
+    } else {
+      statusDetalhes.hidden = false;
+      statusDetalhes.textContent = erro.message;
+    }
+  }
 }
+
+document.getElementById("buscar-lojas").addEventListener("click", () => {
+  document.getElementById("mensagem-lojas").textContent =
+    "O Help Cat ainda não tem dados de lojas ou de estoque.";
+});
+
+carregarDetalhes();

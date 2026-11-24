@@ -20,6 +20,7 @@
     >
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/login.css">
+    <script src="js/api.js" defer></script>
     <script src="js/login.js" defer></script>
   </head>
 
@@ -57,12 +58,21 @@
         <section class="cartao-login" aria-labelledby="titulo-login">
           <div class="cabecalho-cartao">
             <h1 id="titulo-login">Seja bem-vindo!</h1>
-            <p>Faça login para continuar.</p>
+            <p id="descricao-login">Faça login para continuar.</p>
           </div>
 
-          <form id="formulario-login" novalidate aria-busy="false">
+          <form id="formulario-login" method="post" novalidate>
+            <div class="campo-formulario" id="grupo-nome" hidden>
+              <label for="nome">Nome</label>
+              <div class="controle-campo">
+                <span class="icone-campo icone-usuario" aria-hidden="true"></span>
+                <input id="nome" name="nome" autocomplete="name" minlength="2" maxlength="80" disabled
+                  aria-describedby="erro-nome">
+              </div>
+              <p class="erro-campo" id="erro-nome" role="alert"></p>
+            </div>
             <div class="campo-formulario">
-              <label class="apenas-leitor-tela" for="email">E-mail</label>
+              <label for="email">E-mail</label>
               <div class="controle-campo">
                 <span class="icone-campo icone-usuario" aria-hidden="true"></span>
                 <input
@@ -71,7 +81,7 @@
                   type="email"
                   autocomplete="email"
                   inputmode="email"
-                  placeholder="E-mail"
+                  maxlength="254"
                   aria-describedby="erro-email"
                   required
                 >
@@ -80,7 +90,7 @@
             </div>
 
             <div class="campo-formulario">
-              <label class="apenas-leitor-tela" for="senha">Senha</label>
+              <label for="senha">Senha</label>
               <div class="controle-campo">
                 <span class="icone-campo icone-cadeado" aria-hidden="true"></span>
                 <input
@@ -88,9 +98,9 @@
                   name="senha"
                   type="password"
                   autocomplete="current-password"
-                  placeholder="Senha"
                   aria-describedby="erro-senha"
-                  minlength="6"
+                  minlength="8"
+                  maxlength="128"
                   required
                 >
                 <button
@@ -111,26 +121,16 @@
               <span class="seta-botao" aria-hidden="true">→</span>
             </button>
 
-            <div class="separador"><span>ou</span></div>
-
-            <div class="grupo-botoes-sociais" aria-label="Outras formas de entrar">
-              <button class="botao-social" type="button" data-provedor="Google" aria-label="Entrar com Google">
-                <span class="marca-google" aria-hidden="true">G</span>
-              </button>
-              <button class="botao-social" type="button" data-provedor="Facebook" aria-label="Entrar com Facebook">
-                <span class="marca-facebook" aria-hidden="true">f</span>
-              </button>
-              <button class="botao-social" type="button" data-provedor="Apple" aria-label="Entrar com Apple">
-                <span class="marca-apple" aria-hidden="true">A</span>
-              </button>
-            </div>
-
-            <p class="mensagem-login" id="mensagem-login" role="status" aria-live="polite"></p>
+            <p class="mensagem-login" id="mensagem-login" role="alert" tabindex="-1"></p>
           </form>
 
           <p class="texto-cadastro">
-            Não tem uma conta?
-            <button class="botao-texto" id="botao-cadastro" type="button">Cadastre-se</button>
+            <span id="texto-alternar-conta">Não tem uma conta?</span>
+            <a class="botao-texto" id="botao-cadastro" href="login.html?modo=cadastro">Cadastre-se</a>
+          </p>
+          <p class="texto-cadastro" id="aviso-pages" hidden>
+            Login e cadastro estão disponíveis na versão com servidor.
+            <a class="botao-texto" href="resultados.html">Ver rações</a>
           </p>
         </section>
       </main>

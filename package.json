@@ -1,0 +1,13 @@
+{
+  "name": "helpcat",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node servidor.cjs",
+    "build:pages": "node scripts/preparar-pages.cjs",
+    "test": "node --test"
+  }
+}

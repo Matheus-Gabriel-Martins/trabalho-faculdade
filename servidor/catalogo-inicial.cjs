@@ -1,6 +1,6 @@
 "use strict";
 
-window.catalogoRacoes = [
+module.exports = [
   {
     id: "royal-canin-urinary",
     marca: "Royal Canin",

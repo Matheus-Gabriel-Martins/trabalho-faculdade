@@ -7,10 +7,10 @@ const campoBusca = document.getElementById("busca-home");
 const cartoesCategoria = [...document.querySelectorAll(".cartao-categoria")];
 const linksDeCategoria = [...document.querySelectorAll("[data-categoria]:not(.cartao-categoria)")];
 const linksDaNavegacao = [...document.querySelectorAll(".navegacao-principal a")];
-const linkMeuPet = document.querySelector("[data-recurso='Meu Pet']");
 const botaoNotificacoes = document.getElementById("botao-notificacoes");
 const botaoPerfil = document.getElementById("botao-perfil");
 const menuPerfil = document.getElementById("menu-perfil");
+const botaoSair = document.getElementById("botao-sair");
 const avisoHome = document.getElementById("aviso-home");
 
 let temporizadorDoAviso;
@@ -106,10 +106,38 @@ linksDeCategoria.forEach((link) => {
   });
 });
 
-linkMeuPet.addEventListener("click", () => {
-  marcarLinkAtivo(linkMeuPet);
-  fecharMenuPrincipal();
-  mostrarAviso("A área Meu Pet será conectada na próxima etapa do projeto.");
+async function mostrarConta() {
+  if (modoEstatico) {
+    window.location.replace("index.html");
+    return;
+  }
+  try {
+    const { usuario } = await apiHelpCat.sessao();
+    if (!usuario) {
+      window.location.replace("login.html");
+      return;
+    }
+    document.getElementById("nome-conta").textContent = `Olá, ${usuario.nome}!`;
+    document.getElementById("email-conta").textContent = usuario.email;
+  } catch (erro) {
+    mostrarAviso(erro.message);
+  }
+}
+
+botaoSair.addEventListener("click", async () => {
+  botaoSair.disabled = true;
+  try {
+    await apiHelpCat.solicitar("sair", "POST");
+    window.location.replace("login.html");
+  } catch (erro) {
+    mostrarAviso(erro.message);
+    botaoSair.disabled = false;
+  }
+});
+
+mostrarConta();
+window.addEventListener("pageshow", (evento) => {
+  if (evento.persisted) mostrarConta();
 });
 
 cartoesCategoria.forEach((cartao) => {

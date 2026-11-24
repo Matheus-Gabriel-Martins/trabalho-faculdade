@@ -1,110 +1,97 @@
 "use strict";
 
 const formularioLogin = document.getElementById("formulario-login");
+const campoNome = document.getElementById("nome");
 const campoEmail = document.getElementById("email");
 const campoSenha = document.getElementById("senha");
 const botaoVisibilidade = document.getElementById("alternar-senha");
-const mensagemErroEmail = document.getElementById("erro-email");
-const mensagemErroSenha = document.getElementById("erro-senha");
 const botaoEntrar = document.getElementById("botao-entrar");
 const textoBotaoEntrar = botaoEntrar.querySelector(".texto-entrar");
 const mensagemLogin = document.getElementById("mensagem-login");
-const botoesSociais = [...document.querySelectorAll(".botao-social")];
-const botaoCadastro = document.getElementById("botao-cadastro");
+const linkAlternarConta = document.getElementById("botao-cadastro");
+const parametrosLogin = new URLSearchParams(window.location.search);
+const modoCadastro = parametrosLogin.get("modo") === "cadastro";
+const rotasDeRetorno = new Set(["resultados.html", "questionario.html", "detalhes-racao.html"]);
+const retornoSolicitado = parametrosLogin.get("retorno") ?? "";
+const retornoLogin = rotasDeRetorno.has(retornoSolicitado.split("?")[0])
+  ? retornoSolicitado
+  : "home.html";
+const textoAcao = modoCadastro ? "Criar conta" : "Entrar";
+const camposLogin = modoCadastro ? [campoNome, campoEmail, campoSenha] : [campoEmail, campoSenha];
 
-const PADRAO_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const TAMANHO_MINIMO_SENHA = 6;
-const TEMPO_SIMULACAO_LOGIN = 900;
-const TEMPO_ATE_HOME = 450;
-
-function alternarVisibilidadeDaSenha() {
-  const deveMostrarSenha = campoSenha.type === "password";
-
-  campoSenha.type = deveMostrarSenha ? "text" : "password";
-  botaoVisibilidade.setAttribute(
-    "aria-label",
-    deveMostrarSenha ? "Ocultar senha" : "Mostrar senha",
-  );
-  botaoVisibilidade.setAttribute("aria-pressed", String(deveMostrarSenha));
+if (modoCadastro) {
+  document.title = "Criar conta | Help Cat";
+  document.getElementById("titulo-login").textContent = "Crie sua conta";
+  document.getElementById("descricao-login").textContent = "Salve seus favoritos e as respostas sobre seu gato.";
+  document.getElementById("grupo-nome").hidden = false;
+  campoNome.disabled = false;
+  campoNome.required = true;
+  campoSenha.autocomplete = "new-password";
+  document.getElementById("texto-alternar-conta").textContent = "Já tem uma conta?";
+  linkAlternarConta.textContent = "Entre";
 }
 
-function definirErroDoCampo(campo, elementoMensagem, mensagem) {
-  elementoMensagem.textContent = mensagem;
+if (modoEstatico) {
+  document.title = "Conheça o Help Cat";
+  document.getElementById("titulo-login").textContent = "Conheça o Help Cat";
+  document.getElementById("descricao-login").textContent = "Explore o catálogo e salve seus favoritos neste navegador.";
+  formularioLogin.hidden = true;
+  linkAlternarConta.closest("p").hidden = true;
+  document.getElementById("aviso-pages").hidden = false;
+}
+
+textoBotaoEntrar.textContent = textoAcao;
+const proximoModo = new URLSearchParams();
+if (!modoCadastro) proximoModo.set("modo", "cadastro");
+if (retornoLogin !== "home.html") proximoModo.set("retorno", retornoLogin);
+linkAlternarConta.href = proximoModo.size ? `login.html?${proximoModo}` : "login.html";
+
+function definirErro(campo, mensagem) {
+  document.getElementById(`erro-${campo.id}`).textContent = mensagem;
   campo.setAttribute("aria-invalid", String(Boolean(mensagem)));
 }
 
-function validarFormulario() {
-  const emailInvalido = !PADRAO_EMAIL.test(campoEmail.value.trim());
-  const senhaInvalida = campoSenha.value.length < TAMANHO_MINIMO_SENHA;
-
-  definirErroDoCampo(
-    campoEmail,
-    mensagemErroEmail,
-    emailInvalido ? "Digite um e-mail válido, como voce@exemplo.com." : "",
-  );
-  definirErroDoCampo(
-    campoSenha,
-    mensagemErroSenha,
-    senhaInvalida
-      ? `A senha precisa ter pelo menos ${TAMANHO_MINIMO_SENHA} caracteres.`
-      : "",
-  );
-
-  if (emailInvalido) {
-    campoEmail.focus();
-  } else if (senhaInvalida) {
-    campoSenha.focus();
-  }
-
-  return !emailInvalido && !senhaInvalida;
+function validarCampos() {
+  definirErro(campoNome, modoCadastro && campoNome.value.trim().length < 2 ? "Digite seu nome." : "");
+  const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(campoEmail.value.trim());
+  definirErro(campoEmail, emailValido ? "" : "Digite um e-mail válido.");
+  definirErro(campoSenha, campoSenha.value.length >= 8 ? "" : "Use pelo menos 8 caracteres.");
+  const invalido = camposLogin.find((campo) => campo.getAttribute("aria-invalid") === "true");
+  invalido?.focus();
+  return !invalido;
 }
 
-function limparErroAoDigitar(campo, elementoMensagem) {
-  if (campo.getAttribute("aria-invalid") === "true") {
-    definirErroDoCampo(campo, elementoMensagem, "");
-  }
+botaoVisibilidade.addEventListener("click", () => {
+  const mostrar = campoSenha.type === "password";
+  campoSenha.type = mostrar ? "text" : "password";
+  botaoVisibilidade.setAttribute("aria-label", mostrar ? "Ocultar senha" : "Mostrar senha");
+  botaoVisibilidade.setAttribute("aria-pressed", String(mostrar));
+});
+
+for (const campo of camposLogin) {
+  campo.addEventListener("input", () => {
+    definirErro(campo, "");
+    mensagemLogin.textContent = "";
+  });
 }
 
-function avisarFuncionalidadePendente(mensagem) {
-  mensagemLogin.textContent = mensagem;
-}
+formularioLogin.addEventListener("submit", async (evento) => {
+  evento.preventDefault();
+  if (botaoEntrar.disabled || !validarCampos()) return;
 
-// Esta simulação será substituída pela autenticação do backend.
-function simularLogin() {
+  const dados = Object.fromEntries(new FormData(formularioLogin));
+  mensagemLogin.textContent = "";
   formularioLogin.setAttribute("aria-busy", "true");
   botaoEntrar.disabled = true;
-  textoBotaoEntrar.textContent = "Entrando…";
-  mensagemLogin.textContent = "Validando seus dados…";
-
-  window.setTimeout(() => {
-    textoBotaoEntrar.textContent = "Entrar";
-    mensagemLogin.textContent = "Login realizado! Abrindo a página inicial…";
-
-    window.setTimeout(() => {
-      window.location.assign("home.html");
-    }, TEMPO_ATE_HOME);
-  }, TEMPO_SIMULACAO_LOGIN);
-}
-
-botaoVisibilidade.addEventListener("click", alternarVisibilidadeDaSenha);
-campoEmail.addEventListener("input", () => limparErroAoDigitar(campoEmail, mensagemErroEmail));
-campoSenha.addEventListener("input", () => limparErroAoDigitar(campoSenha, mensagemErroSenha));
-
-botoesSociais.forEach((botao) => {
-  botao.addEventListener("click", () => {
-    avisarFuncionalidadePendente(`O acesso com ${botao.dataset.provedor} será conectado em breve.`);
-  });
-});
-
-botaoCadastro.addEventListener("click", () => {
-  avisarFuncionalidadePendente("O cadastro será conectado em breve.");
-});
-
-formularioLogin.addEventListener("submit", (evento) => {
-  evento.preventDefault();
-  mensagemLogin.textContent = "";
-
-  if (validarFormulario()) {
-    simularLogin();
+  textoBotaoEntrar.textContent = modoCadastro ? "Criando conta…" : "Entrando…";
+  try {
+    await apiHelpCat.solicitar(modoCadastro ? "cadastro" : "login", "POST", dados);
+    window.location.assign(retornoLogin);
+  } catch (erro) {
+    mensagemLogin.textContent = erro.message;
+    formularioLogin.removeAttribute("aria-busy");
+    botaoEntrar.disabled = false;
+    textoBotaoEntrar.textContent = textoAcao;
+    mensagemLogin.focus();
   }
 });

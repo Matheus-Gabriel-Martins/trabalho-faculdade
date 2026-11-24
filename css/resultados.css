@@ -213,6 +213,15 @@
   font-size: 0.9rem;
 }
 
+.lista-resultados__cabecalho a {
+  color: var(--acao);
+  text-decoration: underline;
+}
+
+#mensagem-resultados {
+  color: var(--acao);
+}
+
 .lista-resultados__cabecalho label {
   display: flex;
   align-items: center;

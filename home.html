@@ -20,6 +20,7 @@
     >
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/home.css">
+    <script src="js/api.js" defer></script>
     <script src="js/home.js" defer></script>
   </head>
 
@@ -55,7 +56,7 @@
             <li><a href="resultados.html" data-categoria="Rações">Rações</a></li>
             <li><a href="#categorias" data-categoria="Vacinas">Vacinas</a></li>
             <li><a href="#categorias" data-categoria="Veterinários">Veterinários</a></li>
-            <li><a href="#cuidados" data-recurso="Meu Pet">Meu Pet</a></li>
+            <li><a href="questionario.html">Meu Pet</a></li>
           </ul>
         </nav>
 
@@ -92,8 +93,9 @@
             </button>
 
             <div class="menu-perfil" id="menu-perfil" hidden>
-              <p><strong>Olá, Kelly!</strong><span>Conta de demonstração</span></p>
-              <a href="login.html">Sair</a>
+              <p><strong id="nome-conta">Minha conta</strong><span id="email-conta"></span></p>
+              <a href="resultados.html?favoritos=1">Minhas rações favoritas</a>
+              <button id="botao-sair" type="button">Sair</button>
             </div>
           </div>
         </div>

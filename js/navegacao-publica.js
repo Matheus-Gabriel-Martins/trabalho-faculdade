@@ -3,6 +3,21 @@
 const botaoMenuPublico = document.getElementById("botao-menu-publico");
 const menuPublico = document.getElementById("menu-publico");
 
+const linkConta = document.querySelector(".botao-entrar-publico");
+if (modoEstatico) {
+  linkConta.href = "resultados.html";
+  linkConta.firstElementChild.hidden = true;
+  linkConta.lastElementChild.textContent = "Ver rações";
+} else {
+  apiHelpCat.sessao().then(({ usuario }) => {
+    if (!usuario) return;
+    linkConta.href = "home.html";
+    linkConta.lastElementChild.textContent = "Minha conta";
+  }).catch(() => {
+    // O menu público continua disponível durante uma falha de conexão.
+  });
+}
+
 if (botaoMenuPublico && menuPublico) {
   function fecharMenuPublico() {
     menuPublico.classList.remove("menu-publico--aberto");

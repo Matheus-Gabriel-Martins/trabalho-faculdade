@@ -1,0 +1,43 @@
+name: Publicar Help Cat no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  preparar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Testar API e banco
+        run: npm test
+      - name: Preparar arquivos públicos
+        run: npm run build:pages
+      - name: Enviar pacote do site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .pages
+
+  publicar:
+    needs: preparar
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Publicar site
+        id: deploy
+        uses: actions/deploy-pages@v5

@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="css/navegacao-publica.css">
     <link rel="stylesheet" href="css/produtos.css">
     <link rel="stylesheet" href="css/resultados.css">
+    <script src="js/api.js" defer></script>
     <script src="js/navegacao-publica.js" defer></script>
-    <script src="js/dados-racoes.js" defer></script>
     <script src="js/resultados.js" defer></script>
   </head>
 
@@ -141,7 +141,10 @@
           <div class="lista-resultados__cabecalho">
             <div>
               <h2 id="titulo-lista-resultados" tabindex="-1">Rações recomendadas para o seu gato</h2>
-              <p id="contagem-resultados" role="status" aria-live="polite"></p>
+              <a id="link-catalogo-completo" href="resultados.html" hidden>Voltar ao catálogo</a>
+              <a id="link-favoritos" href="resultados.html?favoritos=1" hidden>Minhas rações favoritas</a>
+              <p id="contagem-resultados" role="status" aria-live="polite">Carregando rações…</p>
+              <p id="mensagem-resultados" role="alert"></p>
             </div>
 
             <label for="ordenacao-resultados">

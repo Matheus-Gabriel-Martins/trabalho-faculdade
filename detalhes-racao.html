@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="css/navegacao-publica.css">
     <link rel="stylesheet" href="css/produtos.css">
     <link rel="stylesheet" href="css/detalhes-racao.css">
+    <script src="js/api.js" defer></script>
     <script src="js/navegacao-publica.js" defer></script>
-    <script src="js/dados-racoes.js" defer></script>
     <script src="js/detalhes-racao.js" defer></script>
   </head>
 
@@ -69,7 +69,8 @@
         <a href="resultados.html">Ver todas as opções</a>
       </section>
 
-      <div id="detalhes-produto">
+      <p id="status-detalhes" role="status">Carregando detalhes da ração…</p>
+      <div id="detalhes-produto" hidden>
         <section class="apresentacao-produto" aria-labelledby="nome-produto">
           <div class="galeria-produto">
             <div class="miniaturas-produto" role="group" aria-label="Vistas da embalagem">

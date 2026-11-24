@@ -11,11 +11,15 @@ const mensagemSemResultados = document.getElementById("sem-resultados");
 const ordenacaoResultados = document.getElementById("ordenacao-resultados");
 const textoAlternarFiltros = document.getElementById("texto-alternar-filtros");
 const tituloListaResultados = document.getElementById("titulo-lista-resultados");
+const mensagemResultados = document.getElementById("mensagem-resultados");
+const escapar = apiHelpCat.escaparHtml;
 
-const catalogoRacoes = window.catalogoRacoes ?? [];
+let catalogoRacoes;
+let usuarioCatalogo;
 const CHAVE_PERFIL = "perfilHelpCat";
 const CHAVE_FAVORITOS = "favoritosHelpCat";
 const CHAVE_CONSULTA_RESULTADOS = "consultaResultadosHelpCat";
+const apenasFavoritos = new URLSearchParams(window.location.search).get("favoritos") === "1";
 
 const VALORES_PERMITIDOS = {
   condicao: new Set(["urinaria", "peso", "sensibilidade", "renal", "nenhuma"]),
@@ -39,54 +43,55 @@ function lerListaSalva(chave) {
   }
 }
 
-let favoritos = new Set(lerListaSalva(CHAVE_FAVORITOS));
-
-function salvarFavoritos() {
-  try {
-    localStorage.setItem(CHAVE_FAVORITOS, JSON.stringify([...favoritos]));
-  } catch {
-    // A página continua funcionando quando o navegador bloqueia o armazenamento local.
-  }
-}
+const alteracoesFavoritos = new Set();
+let favoritos = new Set();
 
 function criarEmbalagem(produto) {
   return `
-    <div class="embalagem-racao ${produto.classeEmbalagem}" role="img" aria-label="Ilustração da embalagem ${produto.marca} ${produto.nome}">
-      <span class="embalagem-racao__marca">${produto.marca}</span>
-      <strong class="embalagem-racao__nome">${produto.nome}</strong>
+    <div class="embalagem-racao ${escapar(produto.classeEmbalagem)}" role="img" aria-label="Ilustração da embalagem ${escapar(produto.marca)} ${escapar(produto.nome)}">
+      <span class="embalagem-racao__marca">${escapar(produto.marca)}</span>
+      <strong class="embalagem-racao__nome">${escapar(produto.nome)}</strong>
       <span class="embalagem-racao__pata" aria-hidden="true">🐾</span>
     </div>
   `;
 }
 
+function rotuloFavorito(produto, estaFavorito) {
+  return estaFavorito
+    ? `Remover ${produto.nome} dos favoritos`
+    : `Adicionar ${produto.nome} aos favoritos`;
+}
+
 function criarCartaoProduto(produto) {
   const estaFavorito = favoritos.has(produto.id);
+  const id = escapar(produto.id);
 
   return `
-    <article class="cartao-produto" data-produto-id="${produto.id}">
+    <article class="cartao-produto" data-produto-id="${id}">
       <div class="cartao-produto__topo">
-        <span class="selo-produto ${produto.classeSelo}">${produto.selo}</span>
+        <span class="selo-produto ${escapar(produto.classeSelo)}">${escapar(produto.selo)}</span>
         <button
           class="botao-favorito"
           type="button"
-          aria-label="${estaFavorito ? "Remover" : "Adicionar"} ${produto.nome} dos favoritos"
+          aria-label="${escapar(rotuloFavorito(produto, estaFavorito))}"
           aria-pressed="${estaFavorito}"
-          data-favorito="${produto.id}"
+          data-favorito="${id}"
+          ${alteracoesFavoritos.has(produto.id) ? 'aria-disabled="true"' : ""}
         >${estaFavorito ? "♥" : "♡"}</button>
       </div>
       <div class="cartao-produto__imagem">${criarEmbalagem(produto)}</div>
-      <h3>${produto.marca} ${produto.nome}</h3>
-      <p class="cartao-produto__subtitulo">${produto.subtitulo}</p>
+      <h3>${escapar(produto.marca)} ${escapar(produto.nome)}</h3>
+      <p class="cartao-produto__subtitulo">${escapar(produto.subtitulo)}</p>
       <div class="avaliacao-produto">
         <span class="estrelas-produto" aria-label="${produto.avaliacao} de 5 estrelas">★★★★★</span>
         <strong>${produto.avaliacao.toFixed(1)}</strong>
-        <span>(${produto.quantidadeAvaliacoes})</span>
+        <span>(${escapar(produto.quantidadeAvaliacoes)})</span>
       </div>
       <p class="cartao-produto__preco">
         ${moeda(produto.preco)}
-        <small>${produto.peso} · valor demonstrativo</small>
+        <small>${escapar(produto.peso)} · valor demonstrativo</small>
       </p>
-      <a class="cartao-produto__link" href="detalhes-racao.html?produto=${produto.id}">
+      <a class="cartao-produto__link" href="detalhes-racao.html?produto=${encodeURIComponent(produto.id)}">
         Ver mais detalhes <span aria-hidden="true">→</span>
       </a>
     </article>
@@ -147,19 +152,35 @@ function atualizarEndereco(filtros) {
   if (filtros.sabor !== "todos") parametros.set("sabor", filtros.sabor);
   if (filtros.preco !== "todos") parametros.set("preco", filtros.preco);
   if (ordenacaoResultados.value !== "relevancia") parametros.set("ordem", ordenacaoResultados.value);
+  if (apenasFavoritos) parametros.set("favoritos", "1");
 
   const novaUrl = parametros.size ? `?${parametros.toString()}` : window.location.pathname;
   window.history.replaceState({}, "", novaUrl);
-  sessionStorage.setItem(CHAVE_CONSULTA_RESULTADOS, parametros.toString());
+  try {
+    sessionStorage.setItem(CHAVE_CONSULTA_RESULTADOS, parametros.toString());
+  } catch {
+    // Os filtros continuam na URL quando o armazenamento está bloqueado.
+  }
 }
 
 function renderizarProdutos() {
+  if (!catalogoRacoes) return;
   const filtros = filtrosAtuais();
-  const produtosFiltrados = ordenarProdutos(catalogoRacoes.filter((produto) => produtoCombina(produto, filtros)));
+  const produtosFiltrados = ordenarProdutos(catalogoRacoes.filter((produto) =>
+    (!apenasFavoritos || favoritos.has(produto.id)) && produtoCombina(produto, filtros),
+  ));
 
   gradeProdutos.innerHTML = produtosFiltrados.map(criarCartaoProduto).join("");
   gradeProdutos.hidden = produtosFiltrados.length === 0;
   mensagemSemResultados.hidden = produtosFiltrados.length > 0;
+  const semFavoritos = apenasFavoritos && favoritos.size === 0;
+  mensagemSemResultados.querySelector("h3").textContent = semFavoritos
+    ? "Ainda não há favoritos"
+    : "Nenhuma ração encontrada";
+  mensagemSemResultados.querySelector("p").textContent = semFavoritos
+    ? "Abra o catálogo e use o coração para salvar suas rações favoritas."
+    : "Tente usar menos filtros para ver mais opções.";
+  botaoLimparFiltrosVazio.hidden = semFavoritos;
   contagemResultados.textContent = `${produtosFiltrados.length} ${produtosFiltrados.length === 1 ? "opção encontrada" : "opções encontradas"}.`;
   atualizarEndereco(filtros);
 }
@@ -207,22 +228,22 @@ function preencherPelosParametros() {
   return aplicouAlgumParametro;
 }
 
-function preencherPeloQuestionario() {
-  const dadosSalvos = sessionStorage.getItem(CHAVE_PERFIL);
-  if (!dadosSalvos) return;
-
+function lerPerfilVisitante() {
   try {
-    const perfil = JSON.parse(dadosSalvos);
-
-    if (VALORES_PERMITIDOS.condicao.has(perfil.condicao)) marcarValor("condicao", perfil.condicao);
-    if (VALORES_PERMITIDOS.fase.has(perfil.idade)) marcarValor("fase", perfil.idade);
-    if (perfil.castracao === "castrado") marcarValor("castrado", "sim");
-    if (perfil.tipo && perfil.tipo !== "ambas") marcarValor("tipo", perfil.tipo);
-    if (VALORES_PERMITIDOS.sabor.has(perfil.sabor)) formularioFiltros.elements.sabor.value = perfil.sabor;
-    if (VALORES_PERMITIDOS.preco.has(perfil.preco)) formularioFiltros.elements.preco.value = perfil.preco;
+    return JSON.parse(sessionStorage.getItem(CHAVE_PERFIL));
   } catch {
-    sessionStorage.removeItem(CHAVE_PERFIL);
+    return null;
   }
+}
+
+function preencherPeloQuestionario(perfil) {
+  if (!perfil) return;
+  if (VALORES_PERMITIDOS.condicao.has(perfil.condicao)) marcarValor("condicao", perfil.condicao);
+  if (VALORES_PERMITIDOS.fase.has(perfil.idade)) marcarValor("fase", perfil.idade);
+  if (perfil.castracao === "castrado") marcarValor("castrado", "sim");
+  if (VALORES_PERMITIDOS.tipo.has(perfil.tipo)) marcarValor("tipo", perfil.tipo);
+  if (VALORES_PERMITIDOS.sabor.has(perfil.sabor)) formularioFiltros.elements.sabor.value = perfil.sabor;
+  if (VALORES_PERMITIDOS.preco.has(perfil.preco)) formularioFiltros.elements.preco.value = perfil.preco;
 }
 
 function limparTodosOsFiltros() {
@@ -253,28 +274,82 @@ botaoAlternarFiltros.addEventListener("click", () => {
   textoAlternarFiltros.textContent = estaAberto ? "Ocultar filtros" : "Mostrar filtros";
 });
 
-gradeProdutos.addEventListener("click", (evento) => {
+gradeProdutos.addEventListener("click", async (evento) => {
   const botaoFavorito = evento.target.closest("[data-favorito]");
   if (!botaoFavorito) return;
 
   const idProduto = botaoFavorito.dataset.favorito;
+  if (alteracoesFavoritos.has(idProduto)) return;
   const produto = catalogoRacoes.find((item) => item.id === idProduto);
-
-  if (favoritos.has(idProduto)) {
-    favoritos.delete(idProduto);
-  } else {
-    favoritos.add(idProduto);
+  const vaiFavoritar = !favoritos.has(idProduto);
+  alteracoesFavoritos.add(idProduto);
+  botaoFavorito.setAttribute("aria-disabled", "true");
+  mensagemResultados.textContent = "";
+  try {
+    if (usuarioCatalogo) {
+      await apiHelpCat.solicitar(`favoritos/${encodeURIComponent(idProduto)}`, "PUT", { favorito: vaiFavoritar });
+    } else {
+      const favoritosAtualizados = new Set(lerListaSalva(CHAVE_FAVORITOS));
+      if (vaiFavoritar) favoritosAtualizados.add(idProduto);
+      else favoritosAtualizados.delete(idProduto);
+      localStorage.setItem(CHAVE_FAVORITOS, JSON.stringify([...favoritosAtualizados]));
+    }
+    if (vaiFavoritar) favoritos.add(idProduto);
+    else favoritos.delete(idProduto);
+  } catch (erro) {
+    mensagemResultados.textContent = usuarioCatalogo
+      ? erro.message
+      : "Não foi possível salvar no navegador. Entre para salvar na sua conta.";
+  } finally {
+    alteracoesFavoritos.delete(idProduto);
   }
 
-  salvarFavoritos();
   const estaFavorito = favoritos.has(idProduto);
-  botaoFavorito.textContent = estaFavorito ? "♥" : "♡";
-  botaoFavorito.setAttribute("aria-pressed", String(estaFavorito));
-  botaoFavorito.setAttribute(
-    "aria-label",
-    `${estaFavorito ? "Remover" : "Adicionar"} ${produto.nome} dos favoritos`,
-  );
+  const botaoAtual = [...gradeProdutos.querySelectorAll("[data-favorito]")]
+    .find((botao) => botao.dataset.favorito === idProduto);
+  if (apenasFavoritos && !estaFavorito) {
+    const tinhaFoco = botaoAtual === document.activeElement;
+    botaoAtual?.closest("article").remove();
+    if (tinhaFoco) tituloListaResultados.focus();
+    renderizarProdutos();
+  } else if (botaoAtual) {
+    botaoAtual.textContent = estaFavorito ? "♥" : "♡";
+    botaoAtual.removeAttribute("aria-disabled");
+    botaoAtual.setAttribute("aria-pressed", String(estaFavorito));
+    botaoAtual.setAttribute("aria-label", rotuloFavorito(produto, estaFavorito));
+  }
 });
 
-if (!preencherPelosParametros()) preencherPeloQuestionario();
-renderizarProdutos();
+async function carregarResultados() {
+  try {
+    if (apenasFavoritos) {
+      tituloListaResultados.textContent = "Minhas rações favoritas";
+      document.getElementById("link-catalogo-completo").hidden = false;
+    }
+    const [racoes, { usuario }] = await Promise.all([
+      apiHelpCat.solicitar("racoes"),
+      apiHelpCat.sessao(),
+    ]);
+    usuarioCatalogo = usuario;
+    if (apenasFavoritos && !usuario && !modoEstatico) {
+      window.location.replace("login.html?retorno=resultados.html%3Ffavoritos%3D1");
+      return;
+    }
+
+    favoritos = new Set(usuario ? await apiHelpCat.solicitar("favoritos") : lerListaSalva(CHAVE_FAVORITOS));
+    if (!apenasFavoritos && (usuario || modoEstatico)) {
+      document.getElementById("link-favoritos").hidden = false;
+    }
+    if (!preencherPelosParametros() && !apenasFavoritos) {
+      const perfil = usuario ? await apiHelpCat.solicitar("perfil-gato") : lerPerfilVisitante();
+      preencherPeloQuestionario(perfil);
+    }
+    catalogoRacoes = racoes;
+    renderizarProdutos();
+  } catch (erro) {
+    contagemResultados.textContent = "";
+    mensagemResultados.textContent = erro.message;
+  }
+}
+
+carregarResultados();

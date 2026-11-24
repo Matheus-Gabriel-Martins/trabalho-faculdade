@@ -296,6 +296,12 @@ main {
   line-height: 1.2;
 }
 
+.campo-formulario label {
+  display: block;
+  margin: 0 4px 5px;
+  font-weight: 700;
+}
+
 .botao-texto {
   padding: 0;
   border: 0;
@@ -313,16 +319,12 @@ main {
   text-decoration-color: currentColor;
 }
 
-.botao-principal,
-.botao-social {
+.botao-principal {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   cursor: pointer;
-}
-
-.botao-principal {
   gap: 13px;
   height: 56px;
   border: 0;
@@ -350,78 +352,10 @@ main {
   cursor: wait;
 }
 
-.separador {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin: 23px 0;
-  color: var(--texto-suave);
-  font-size: 0.88rem;
-}
-
-.separador::before,
-.separador::after {
-  flex: 1;
-  height: 1px;
-  background: var(--borda);
-  content: "";
-}
-
-.grupo-botoes-sociais {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.botao-social {
-  height: 58px;
-  border: 1.5px solid var(--texto);
-  border-radius: 999px;
-  background: rgb(255 255 255 / 70%);
-  color: var(--texto);
-  font-weight: 600;
-}
-
-.botao-social:hover {
-  background: var(--branco);
-}
-
-.marca-google {
-  background: conic-gradient(from -35deg, #4285f4 0 25%, #34a853 25% 42%, #fbbc05 42% 67%, #ea4335 67% 100%);
-  background-clip: text;
-  color: transparent;
-  font-family: Arial, sans-serif;
-  font-size: 1.3rem;
-  font-weight: 900;
-  -webkit-background-clip: text;
-}
-
-.marca-facebook {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #1877f2;
-  color: var(--branco);
-  font-family: Arial, sans-serif;
-  font-size: 1.35rem;
-  font-weight: 900;
-  line-height: 1;
-}
-
-.marca-apple {
-  color: var(--texto);
-  font-family: Georgia, serif;
-  font-size: 1.35rem;
-  font-weight: 800;
-  line-height: 1;
-}
-
 .mensagem-login {
   min-height: 1.3em;
   margin: 12px 0 0;
-  color: var(--texto-suave);
+  color: var(--erro);
   font-size: 0.82rem;
   line-height: 1.3;
   text-align: center;
@@ -684,10 +618,6 @@ main {
     border-radius: 22px;
   }
 
-  .grupo-botoes-sociais {
-    gap: 10px;
-  }
-
   .cabecalho-cartao {
     margin-bottom: 24px;
   }
@@ -714,8 +644,6 @@ main {
 
 @media (min-width: 1181px) and (min-height: 801px) {
   .pagina-login {
-    height: 100vh;
-    height: 100dvh;
     overflow: clip;
   }
 }
@@ -740,19 +668,16 @@ main {
 
 @media (prefers-reduced-motion: no-preference) {
   .botao-principal,
-  .botao-social,
   .botao-visibilidade,
   .botao-texto {
     transition: transform 160ms ease, color 160ms ease, background 160ms ease, box-shadow 160ms ease;
   }
 
-  .botao-principal:hover,
-  .botao-social:hover {
+  .botao-principal:hover {
     transform: translateY(-1px);
   }
 
-  .botao-principal:active,
-  .botao-social:active {
+  .botao-principal:active {
     transform: translateY(1px);
   }
 }
